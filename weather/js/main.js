@@ -1,3 +1,4 @@
+import { conditions } from "../data/conditions.js";
 
 const apiKey = 'd7e188fa46064590ba172934230308';
 
@@ -46,11 +47,12 @@ const removeCards = (cardParent) => {
 }
 
 const showCard = (parent, data) => {
-	const { 
+	const {
 		name,
 		country,
 		isDay,
 		condition,
+		conditionText,
 		time,
 		temp,
 		feelslike,
@@ -75,7 +77,7 @@ const showCard = (parent, data) => {
 						<img src="./images/${isDay ? 'day' : 'night'}/${getIcon(condition)}.png" alt="${condition}">
 					</picture>
 					</div>
-					<p class="card__icon-text">${condition}</p>
+					<p class="card__icon-text">${conditionText}</p>
 				</div>
 				<div class="card__temp-box">
 					<p class="card__time">Сейчас ${getTime(time)}</p>
@@ -129,7 +131,7 @@ const showErrorCard = (parent, data) => {
 }
 
 // определяем язык браузера
-let userLang = navigator.language || navigator.userLanguage; 
+let userLang = navigator.language || navigator.userLanguage;
 userLang = userLang.substr(0, 2).toLowerCase();
 
 async function getWeather(url) {
@@ -152,17 +154,15 @@ form.addEventListener('submit', async function (e) {
 	// делаем запрос на сервер
 	const data = await getWeather(url);
 
-	// подключаем словарь для отображения погоды на языке который стоит в браузере
-	const conditions = await fetch('../data/conditions.json');
-	const conditionsData = await conditions.json();
-	console.log(conditionsData);
+	// подключаем словарь для отображения погоды на языке который стоит в браузере;
+	console.log(conditions);
 
 	if (!data.error) {
 		// Удаляем все дочерние элементы
 		removeCards(main)
 
-		const info = conditionsData.find((obj) => obj.code === data.current.condition.code);
-		
+		const info = conditions.find((obj) => obj.code === data.current.condition.code);
+
 		const infoCurrentLang = info.languages.find((obj) => obj['lang_iso'] === userLang);
 
 		const currentLangConditionDay = infoCurrentLang['day_text'];
@@ -171,9 +171,10 @@ form.addEventListener('submit', async function (e) {
 		const weatherData = {
 			name: data.location.name,
 			country: data.location.country,
-			time:data.location.localtime,
+			time: data.location.localtime,
 			isDay: data.current.is_day,
-			condition: data.current.is_day? currentLangConditionDay : currentLangConditionNight,
+			conditionText: data.current.is_day ? currentLangConditionDay : currentLangConditionNight,
+			condition: data.current.condition.text,
 			temp: data.current.temp_c,
 			feelslike: data.current.feelslike_c,
 			humidity: data.current.humidity,
