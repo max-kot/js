@@ -1,0 +1,358 @@
+:root {
+  --light: #f8f9fa;
+  --dark: #212529;
+  --red: #f03e3e;
+  --dark-red: #c92a2a;
+  --gray: #868e96;
+  --bg-gradient: linear-gradient(323deg, #1864ab 0%, #159957 100%);
+  --header-height: 160px;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/Rubik-Bold.eot");
+  src: url("../fonts/Rubik-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Rubik-Bold.woff2") format("woff2"), url("../fonts/Rubik-Bold.woff") format("woff"), url("../fonts/Rubik-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/Rubik-Medium.eot");
+  src: url("../fonts/Rubik-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/Rubik-Medium.woff2") format("woff2"), url("../fonts/Rubik-Medium.woff") format("woff"), url("../fonts/Rubik-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+img,
+source {
+  max-width: 100%;
+}
+
+a,
+button,
+input {
+  cursor: pointer;
+  font: inherit;
+}
+
+body {
+  background-color: var(--light);
+  font-size: 16px;
+  font-style: normal;
+  line-height: 120%;
+  color: var(--dark);
+  font-family: "Rubik", sans-serif;
+}
+
+.wrapper {
+  overflow: hidden;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+@media (max-width: 768px) {
+  .wrapper {
+    gap: 30px;
+  }
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+.container {
+  max-width: 883px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+/* --- Sections ---*/
+.header {
+  background: var(--bg-gradient);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  padding: 22px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: all 0.5s;
+  z-index: 55;
+}
+.header.active {
+  padding-top: 200px;
+  height: 100vh;
+}
+.header__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.header__title {
+  font-size: 32px;
+  line-height: 120%;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--light);
+}
+@media (max-width: 550px) {
+  .header__title {
+    font-size: 22px;
+  }
+}
+.header__title + * {
+  margin-top: 16px;
+}
+.header__form {
+  width: 100%;
+  display: flex;
+  background-color: var(--light);
+  border-radius: 16px;
+}
+@media (max-width: 550px) {
+  .header__form {
+    flex-direction: column;
+    gap: 8px;
+    background: transparent;
+  }
+}
+
+.form__input {
+  flex: 1;
+  padding: 16px 48px;
+  background-color: var(--light);
+  border: none;
+  border-radius: 16px 0 0 16px;
+  font-size: 22px;
+}
+@media (max-width: 768px) {
+  .form__input {
+    padding: 16px;
+  }
+}
+@media (max-width: 550px) {
+  .form__input {
+    border-radius: 16px;
+    font-size: 16px;
+  }
+}
+.form__input::-moz-placeholder {
+  color: var(--gray);
+}
+.form__input::placeholder {
+  color: var(--gray);
+}
+.form__btn {
+  padding: 16px 50px;
+  border: none;
+  border-radius: 0 16px 16px 0;
+  background-color: var(--red);
+  color: var(--light);
+  text-transform: uppercase;
+  font-size: 22px;
+  transition: all 0.5s;
+}
+@media (max-width: 768px) {
+  .form__btn {
+    padding: 16px;
+  }
+}
+@media (max-width: 550px) {
+  .form__btn {
+    border-radius: 16px;
+  }
+}
+.form__btn:hover {
+  background-color: var(--dark-red);
+}
+
+/*--- Card ---*/
+.card {
+  margin-top: calc(var(--header-height) + 60px);
+  background-color: var(--light);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  padding: 60px 80px;
+  border-radius: 16px;
+}
+@media (max-width: 1024px) {
+  .card {
+    padding: 30px 40px;
+  }
+}
+.card__header {
+  padding-right: 50px;
+}
+.card__header + * {
+  margin-top: 30px;
+}
+.card__city {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--dark);
+  line-height: 1;
+  font-size: 48px;
+  display: inline-block;
+  position: relative;
+  padding-top: 8px;
+  padding-right: 8px;
+}
+@media (max-width: 550px) {
+  .card__city {
+    font-size: 38px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 16px;
+    padding: unset;
+  }
+}
+.card__country {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 14px;
+  transform: translate(100%, -50%);
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--red);
+  color: var(--light);
+  font-weight: 500;
+  line-height: 100%;
+}
+@media (max-width: 550px) {
+  .card__country {
+    position: static;
+    transform: none;
+    align-self: flex-start;
+  }
+}
+.card__main {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+}
+@media (max-width: 550px) {
+  .card__main {
+    flex-direction: column;
+  }
+}
+.card__main + * {
+  margin-top: 50px;
+}
+.card__icon {
+  max-width: 200px;
+}
+.card__icon + * {
+  margin-top: 16px;
+}
+.card__icon-text {
+  font-weight: 28px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.card__temp-box {
+  text-align: right;
+}
+@media (max-width: 550px) {
+  .card__temp-box {
+    text-align: left;
+  }
+}
+.card__time {
+  color: var(--gray);
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+.card__time + * {
+  margin-top: 16px;
+}
+.card__temp {
+  font-size: 100px;
+  font-weight: 700;
+  line-height: 120%;
+}
+@media (max-width: 550px) {
+  .card__temp {
+    font-size: 60px;
+  }
+}
+.addition {
+  list-style-type: none;
+  display: flex;
+  --gap: 30px;
+  --column: 3;
+  --width: calc((100% - var(--gap) * (var(--column) - 1)) / var(--column));
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+@media (max-width: 768px) {
+  .addition {
+    --column: 2;
+  }
+}
+@media (max-width: 550px) {
+  .addition {
+    --column: 1;
+  }
+}
+.addition__item {
+  flex: 0 1 var(--width);
+}
+.addition__text {
+  color: var(--gray);
+  font-size: 22px;
+  text-transform: uppercase;
+}
+@media (max-width: 550px) {
+  .addition__text {
+    font-size: 16px;
+  }
+}
+.addition__text + * {
+  margin-top: 10px;
+}
+.addition__value {
+  font-size: 42px;
+  line-height: 100%;
+  font-weight: 700;
+}
+
+/*--- Footer ---*/
+.footer {
+  background: var(--bg-gradient);
+  padding: 22px 0;
+}
+.footer__body {
+  text-align: center;
+  color: var(--light);
+}
+.footer__copy {
+  font-style: normal;
+  text-transform: uppercase;
+}
+.footer__copy a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+.footer__copy a:hover {
+  color: var(--dark-red);
+}
