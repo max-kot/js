@@ -1,0 +1,284 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html,
+body {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+img,
+source,
+svg {
+  max-width: 100%;
+}
+
+a,
+input,
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 120%;
+  color: #212529;
+  background: linear-gradient(135deg, #0b8793 0%, #360033 100%);
+}
+
+.container {
+  max-width: 576px;
+  margin: 0 auto;
+  padding: 60px 10px 0;
+}
+
+.app {
+  border-radius: 16px;
+  background: #f8f9fa;
+  box-shadow: 0 5px 5px 0px rgba(33, 37, 41, 0.25);
+  padding: 32px 32px 64px;
+}
+@media (max-width: 550px) {
+  .app {
+    padding: 16px 16px 32px;
+  }
+}
+.app__heading:not(:last-child) {
+  margin-bottom: 32px;
+}
+@media (max-width: 550px) {
+  .app__heading:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+.app__title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 42px;
+  font-weight: 700;
+}
+@media (max-width: 550px) {
+  .app__title {
+    font-size: 32px;
+  }
+}
+.app__form {
+  display: flex;
+  position: relative;
+  background: #e9ecef;
+  box-shadow: 0px 0px 5px 0px rgba(33, 37, 41, 0.25);
+  border-radius: 100px;
+}
+@media (max-width: 550px) {
+  .app__form {
+    flex-direction: column;
+    gap: 16px;
+    background: transparent;
+    box-shadow: unset;
+    border-radius: unset;
+  }
+}
+.app__form:not(:last-child) {
+  margin-bottom: 64px;
+}
+@media (max-width: 550px) {
+  .app__form:not(:last-child) {
+    margin-bottom: 32px;
+  }
+}
+.app__input {
+  width: 100%;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 100px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background: #e9ecef;
+}
+@media (max-width: 550px) {
+  .app__input {
+    border-radius: 100px;
+    box-shadow: 0px 0px 5px 0px rgba(33, 37, 41, 0.25);
+  }
+}
+.app__input::-moz-placeholder {
+  color: #adb5bd;
+}
+.app__input::placeholder {
+  color: #adb5bd;
+}
+.app__btn {
+  border: none;
+  border-radius: 100px;
+  padding: 12px 42px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #e9ecef;
+  background-color: #2b8a3e;
+  transition: all 0.3s;
+}
+.app__btn:hover {
+  background-color: #1e5f2b;
+}
+.app__list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.app__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+@media (max-width: 550px) {
+  .app__list li {
+    gap: 4px;
+  }
+}
+.app__list li > *:nth-child(2) {
+  margin-right: auto;
+}
+.app__list li.checked {
+  text-decoration: line-through;
+  color: #adb5bd;
+}
+.app__list li.checked p.edit {
+  background: transparent;
+  box-shadow: none;
+  border-radius: unset;
+}
+.app__list li p {
+  width: 70%;
+  padding: 4px 16px;
+  border: 2px solid transparent;
+  transition: background 0.3s, border-radius 0.3s;
+  word-wrap: break-word;
+}
+.app__list li p.edit {
+  background: #e9ecef;
+  box-shadow: 0px 0px 5px 0px rgba(33, 37, 41, 0.25);
+  border-color: #212529;
+  border-radius: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.checked .btn-edit {
+  display: none;
+}
+.checked .btn-check {
+  background: #2b8a3e;
+  border-color: #2b8a3e;
+}
+.checked .btn-check svg {
+  opacity: 1;
+}
+.checked .btn-check svg svg {
+  pointer-events: none;
+}
+
+.btn-check {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  border: 4px solid #adb5bd;
+  transition: all 0.3s;
+}
+.btn-check svg {
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.btn-check:hover {
+  background: #2b8a3e;
+  border-color: #2b8a3e;
+}
+.btn-check:hover svg {
+  opacity: 1;
+}
+
+.btn-edit,
+.btn-delete {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+.btn-edit svg,
+.btn-delete svg {
+  pointer-events: none;
+}
+.btn-edit:hover,
+.btn-delete:hover {
+  background-color: #e9ecef;
+  box-shadow: 0px 0px 5px 0px rgba(33, 37, 41, 0.25);
+}
+
+.btn-edit:hover svg path {
+  fill: #212529;
+}
+.btn-edit.active {
+  background: #2b8a3e;
+  position: relative;
+  z-index: 2;
+  border-color: #212529;
+}
+.btn-edit.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-image: url("../images/check.svg");
+  background-position: center;
+  background-size: 50%;
+  background-repeat: no-repeat;
+}
+.btn-edit.active svg {
+  opacity: 0;
+}
+
+.btn-delete:hover svg path {
+  fill: #f03e3e;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s;
+}
+.overlay.active {
+  background: rgba(33, 37, 41, 0.8);
+  z-index: 1;
+  opacity: 1;
+}
