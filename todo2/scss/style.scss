@@ -34,12 +34,15 @@ body {
 
 	color: #212529;
 	background: linear-gradient(135deg, #0b8793 0%, #360033 100%);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
 }
 
 .container {
 	max-width: 576px;
 	margin: 0 auto;
-	padding: 60px 10px 0;
+	padding: 60px 10px;
 }
 
 .app {
@@ -66,13 +69,21 @@ body {
 	&__title {
 		display: flex;
 		align-items: center;
-		gap: 16px;
+		gap: 8px;
 
 		font-size: 42px;
 		font-weight: 700;
 
+		img {
+			width: 50px;
+		}
+
 		@media (max-width: 550px) {
 			font-size: 32px;
+
+			img {
+				width: 35px;
+			}
 		}
 	}
 
@@ -97,10 +108,9 @@ body {
 		&:not(:last-child) {
 			margin-bottom: 64px;
 
-			
-	@media (max-width: 550px) {
-		margin-bottom: 32px;
-	}
+			@media (max-width: 550px) {
+				margin-bottom: 32px;
+			}
 		}
 	}
 
@@ -137,7 +147,8 @@ body {
 		background-color: #2b8a3e;
 		transition: all 0.3s;
 
-		&:hover {
+		&.hover:hover,
+		&.hover:active {
 			background-color: #1e5f2b;
 		}
 	}
@@ -173,10 +184,15 @@ body {
 			}
 			p {
 				width: 70%;
-				padding: 4px 16px;
+				padding: 1px 16px;
 				border: 2px solid transparent;
 				transition: background 0.3s, border-radius 0.3s;
 				word-wrap: break-word;
+				//margin-top: -5px;
+
+				@media (max-width: 550px) {
+					width: 50%;
+				}
 			}
 			p.edit {
 				background: #e9ecef;
@@ -227,7 +243,8 @@ body {
 		pointer-events: none;
 	}
 
-	&:hover {
+	&.hover:hover,
+	&.hover:active {
 		background: #2b8a3e;
 		border-color: #2b8a3e;
 
@@ -240,8 +257,8 @@ body {
 .btn-edit,
 .btn-delete {
 	flex-shrink: 0;
-	width: 40px;
-	height: 40px;
+	width: 32px;
+	height: 32px;
 	border: none;
 	border-radius: 50%;
 	background: transparent;
@@ -251,14 +268,16 @@ body {
 		pointer-events: none;
 	}
 
-	&:hover {
+	&.hover:hover,
+	&.hover:active {
 		background-color: #e9ecef;
 		box-shadow: 0px 0px 5px 0px rgba(33, 37, 41, 0.25);
 	}
 }
 
 .btn-edit {
-	&:hover {
+	&.hover:hover,
+	&.hover:active {
 		svg path {
 			fill: #212529;
 		}
@@ -286,10 +305,15 @@ body {
 		svg {
 			opacity: 0;
 		}
+
+		&.hover:hover {
+			background-color: #1e5f2b;
+		}
 	}
 }
 .btn-delete {
-	&:hover {
+	&.hover:hover,
+	&.hover:active {
 		svg path {
 			fill: #f03e3e;
 		}
