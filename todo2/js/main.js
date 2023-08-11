@@ -45,6 +45,34 @@ function showData() {
 	list.innerHTML = localStorage.getItem('data');
 }
 
+function addHoverClass() {
+	const allBtns = document.querySelectorAll('button');
+	const allLinks = document.querySelectorAll('a');
+
+	if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+		document.body.classList.add('touch');
+
+		allBtns.forEach(function (btn) {
+			btn.classList.remove('hover');
+		})
+
+		allLinks.forEach(function (link) {
+			link.classList.remove('hover');
+		})
+	} else {
+		document.body.classList.add('no-touch');
+
+		allBtns.forEach(function (btn) {
+			btn.classList.add('hover');
+		})
+
+		allLinks.forEach(function (link) {
+			link.classList.add('hover');
+		})
+	}
+}
+
+/* --- ADD TASK ---*/
 form.addEventListener('submit', function (e) {
 	e.preventDefault();
 	if (input.value === '') {
@@ -60,18 +88,31 @@ form.addEventListener('submit', function (e) {
 		createEditBtn(li);
 		createDeleteBtn(li);
 
+		addHoverClass();
 		input.value = '';
 		saveData();
 	}
 
 })
+
+/*--- ADD OVERLAY ---*/
 let overlay = document.createElement('div');
 overlay.setAttribute('class', 'overlay');
 document.body.appendChild(overlay);
 
+overlay.addEventListener('click', function () {
+	const textElement = document.querySelector('p.edit');
+	const btnEdit = document.querySelector('.btn-edit.active');
+
+	textElement.classList.remove('edit');
+	textElement.contentEditable = 'false';
+	overlay.classList.remove('active');
+	btnEdit.classList.remove('active');
+})
+
+/*--- CLICK FOR TASK LIST ELEMENTS ---*/
 list.addEventListener('click', function (e) {
-	if (e.target.className === 'btn-check') {
-		// || e.target.tagName === 'P' && !e.target.className.includes('edit')
+	if (e.target.className.includes('btn-check')) {
 		e.target.parentElement.classList.toggle('checked');
 		let textElement = e.target.nextElementSibling;
 		let editBtn = textElement.nextElementSibling;
@@ -84,11 +125,13 @@ list.addEventListener('click', function (e) {
 
 		saveData();
 	}
-	if (e.target.className === 'btn-delete') {
+
+	if (e.target.className.includes('btn-delete')) {
 		e.target.parentElement.remove();
 
 		saveData();
 	}
+
 	if (e.target.className.includes('btn-edit')) {
 
 		let btnEdit = e.target;
@@ -108,4 +151,25 @@ list.addEventListener('click', function (e) {
 	}
 })
 
+/*--- DBLCLICK TO EDIT TEXT ---*/
+list.addEventListener('dblclick', function (e) {
+	if (e.target.tagName === 'P') {
+		let textElement = e.target;
+		let btnEdit = e.target.nextElementSibling;
+		btnEdit.classList.toggle('active');
+
+		if (btnEdit.className.includes('active')) {
+			textElement.classList.add('edit');
+			textElement.contentEditable = 'true';
+			textElement.focus();
+			overlay.classList.add('active');
+		} else {
+			textElement.classList.remove('edit');
+			textElement.contentEditable = 'false';
+			overlay.classList.remove('active');
+		}
+	}
+});
+
 showData();
+addHoverClass();
