@@ -153,7 +153,7 @@ list.addEventListener('click', function (e) {
 
 /*--- DBLCLICK TO EDIT TEXT ---*/
 list.addEventListener('dblclick', function (e) {
-	if (e.target.tagName === 'P') {
+	if (e.target.tagName === 'P' && !e.target.parentElement.className.includes('check')) {
 		let textElement = e.target;
 		let btnEdit = e.target.nextElementSibling;
 		btnEdit.classList.toggle('active');
