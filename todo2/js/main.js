@@ -172,4 +172,3 @@ list.addEventListener('dblclick', function (e) {
 });
 
 showData();
-addHoverClass();
