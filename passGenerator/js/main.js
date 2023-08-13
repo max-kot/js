@@ -24,9 +24,22 @@ function generatePassword(){
 	input.value = password;
 }
 
+
+
+let modalBox = document.createElement('div');
+modalBox.classList.add('modal-box');
+modalBox.classList.add('hide');
+document.body.appendChild(modalBox);
+modalBox.innerHTML = 'Password copied';
+
 function copyInput() {
 	input.select();
 	document.execCommand('copy');
+
+	modalBox.classList.remove('hide');
+	setTimeout(function() {
+		modalBox.classList.add('hide');
+	}, 1500)
 }
 
 btnStart.addEventListener('click', generatePassword);
