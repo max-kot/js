@@ -1,0 +1,154 @@
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	min-height: 100vh;
+	box-sizing: border-box;
+	/* For REM-System === 10px = 1 rem */
+	font-size: 62.5%;
+}
+
+img,
+svg,
+source {
+	max-width: 100%;
+}
+
+a,
+input,
+button {
+	font: inherit;
+	cursor: pointer;
+}
+
+body {
+	font-family: "Rubik", sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 2.2rem;
+	background: linear-gradient(135deg, #087f5b, #2f9e44);
+}
+
+.hide {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.container {
+	max-width: 80rem;
+	margin: 0 auto;
+	padding: 6rem 1rem;
+}
+
+.app {
+	background-color: #212529;
+	box-shadow: 0 0 0.5rem 0 rgba(97, 97, 97, 0.25);
+	padding: 6.4rem;
+	border-radius: 1.6rem;
+	color: #f8f9fa;
+}
+
+.app__title {
+	margin-bottom: 3.2rem;
+	font-weight: 700;
+	font-size: 5.2rem;
+	padding-bottom: 1.6rem;
+	border-bottom: 0.5rem solid #087f5b;
+}
+
+.app__title span {
+	color: #087f5b;
+}
+
+.app__input-field {
+	position: relative;
+	border-radius: 8px;
+	overflow: hidden;
+	margin-bottom: 3.2rem;
+}
+
+.app__input {
+	padding: 0.8em 1.6em;
+	width: 100%;
+	border: none;
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	color: #212529;
+}
+
+.app__btn-copy {
+	position: absolute;
+	top: 0.1rem;
+	right: 0;
+	width: 6rem;
+	bottom: 0.1rem;
+	border: none;
+	background-color: #f8f9fa;
+	border-radius: 8px;
+	padding: 1.2rem;
+	color: #087f5b;
+	transition: all 0.3s;
+}
+
+.app__btn-copy:hover {
+	opacity: 0.7;
+}
+
+.app__btn {
+	padding: 1.6rem 6.4rem;
+	border: 3px solid transparent;
+	border-radius: 8px;
+	text-transform: uppercase;
+	color: #212529;
+	color: #f8f9fa;
+	font-weight: 600;
+	background: #087f5b;
+	transition: all 0.3s;
+}
+
+.app__btn:hover {
+	border-color: #f8f9fa;
+	background: transparent;
+	color: #f8f9fa;
+}
+
+.modal-box {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	padding: 3.2rem 6.4rem;
+	background-color: #f8f9fa;
+	box-shadow: 0 0 5px 0 rgba(97, 97, 97, 0.25);
+	border-radius: 16px;
+	color: #212529;
+	transition: all 0.3s;
+}
+
+@media (max-width: 550px) {
+	.app {
+		padding: 3.2rem;
+	}
+
+	.app__title {
+		font-size: 4.2rem;
+	}
+
+	.app__input {
+		padding: 1.6rem 0.8rem;
+	}
+
+	.app__btn {
+		width: 100%;
+		padding: 1.6rem;
+	}
+
+	.modal-box {
+		padding: 3.2rem;
+	}
+}
