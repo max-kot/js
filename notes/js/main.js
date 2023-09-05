@@ -3,7 +3,7 @@ const noteContainer = document.querySelector('.main-container');
 
 function getCurrentDate() {
 	let date = new Date();
-	return `<span>${date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()}.${date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}.${date.getFullYear()}</span><span>${date.getHours() < 10 ? '0' + (date.getHours() + 1) : date.getHours() + 1}:${date.getMinutes() < 10 ? '0' + (date.getMinutes() + 1) : date.getMinutes() + 1}</span>`;
+	return `<span>${date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()}.${date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}.${date.getFullYear()}</span><span>${date.getHours() < 10 ? '0' + date.getHours() : date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}</span>`;
 }
 
 function createNote() {
@@ -11,7 +11,6 @@ function createNote() {
 	note.classList.add('note');
 	note.innerHTML = `<div class="note__header">
 			<p class="note__title" contenteditable="true"><span class="placeholder">Note title</span></p>
-			<div class="note__date">${getCurrentDate()}</div>
 		</div>
 		<div class="note__content" contenteditable="true">
 			<span class="placeholder">Enter your text</span>
@@ -38,7 +37,9 @@ function createNote() {
 					d="M18.7499 4.13631V4.4513C20.0759 4.57268 21.3909 4.73231 22.6938 4.92907C23.1762 5.00192 23.6569 5.07986 24.136 5.16284C24.7028 5.26103 25.0827 5.80015 24.9845 6.367C24.8864 6.93385 24.3472 7.31377 23.7804 7.21558C23.6837 7.19883 23.587 7.1823 23.4902 7.16597L22.0937 25.3192C21.9268 27.49 20.1166 29.1663 17.9394 29.1663H7.06059C4.88338 29.1663 3.07324 27.49 2.90625 25.3192L1.50985 7.16597C1.41303 7.1823 1.31629 7.19883 1.21961 7.21558C0.652766 7.31377 0.113646 6.93385 0.0154554 6.367C-0.0827357 5.80015 0.297185 5.26103 0.864032 5.16284C1.34305 5.07986 1.82379 5.00192 2.30619 4.92907C3.60909 4.73231 4.92409 4.57268 6.25009 4.4513V4.13631C6.25009 1.96347 7.93413 0.108585 10.1604 0.0373704C10.9372 0.0125191 11.7172 0 12.5 0C13.2828 0 14.0628 0.0125191 14.8396 0.0373704C17.0659 0.108585 18.7499 1.96347 18.7499 4.13631ZM10.227 2.11961C10.9816 2.09547 11.7394 2.0833 12.5 2.0833C13.2606 2.0833 14.0184 2.09547 14.773 2.11961C15.8211 2.15314 16.6666 3.0332 16.6666 4.13631V4.29275C15.2883 4.20906 13.8991 4.16661 12.5 4.16661C11.1009 4.16661 9.71165 4.20906 8.33339 4.29275V4.13631C8.33339 3.0332 9.1789 2.15314 10.227 2.11961ZM9.7342 10.3765C9.71209 9.80163 9.22815 9.35353 8.65329 9.37564C8.07842 9.39775 7.63033 9.88169 7.65244 10.4566L8.1332 22.9564C8.15531 23.5313 8.63926 23.9793 9.21412 23.9572C9.78898 23.9351 10.2371 23.4512 10.215 22.8763L9.7342 10.3765ZM17.3463 10.4566C17.3684 9.88169 16.9203 9.39775 16.3454 9.37564C15.7706 9.35353 15.2866 9.80163 15.2645 10.3765L14.7838 22.8763C14.7616 23.4512 15.2097 23.9351 15.7846 23.9572C16.3595 23.9793 16.8434 23.5313 16.8655 22.9564L17.3463 10.4566Z" />
 				</svg>
 			</button>
-		</div>`;
+		</div>
+		<div class="note__date">${getCurrentDate()}</div>
+		`;
 	return note;
 }
 
@@ -77,12 +78,12 @@ function noteContentHandler(element) {
 				if (element.innerHTML.trim() === '') {
 					element.innerHTML = '<span class="placeholder">Enter your text</span>';
 				}
-
 				saveData();
 			})
 		}
 	}
 }
+
 
 btnAdd.addEventListener('click', function () {
 	let note = createNote();
@@ -90,6 +91,7 @@ btnAdd.addEventListener('click', function () {
 
 	note.querySelector('.note__content').focus();
 	noteContentHandler(note.querySelector('.note__content'));
+
 	saveData();
 })
 
