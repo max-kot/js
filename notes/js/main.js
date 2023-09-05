@@ -3,7 +3,7 @@ const noteContainer = document.querySelector('.main-container');
 
 function getCurrentDate() {
 	let date = new Date();
-	return `${date.getDate()}.${date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()}.${date.getFullYear()}`;
+	return `<span>${date.getDate()< 10 ? '0' + (date.getDate()) : date.getDate()}.${date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}.${date.getFullYear()}</span><span>${date.getHours() < 10 ? '0' + (date.getHours() + 1) : date.getHours() + 1}:${date.getMinutes() < 10 ? '0' + (date.getMinutes() + 1) : date.getMinutes() + 1}</span>`;
 }
 
 function createNote() {
@@ -50,6 +50,16 @@ function updateData() {
 	noteContainer.innerHTML = localStorage.getItem('notes');
 }
 
+function createOverlay() {
+	if (!document.querySelector('.overlay')) {
+		const overlay = document.createElement('div');
+		overlay.classList.add('overlay');
+		document.querySelector('.wrapper').appendChild(overlay);
+	} else {
+		document.querySelector('.overlay').remove();
+	}
+}
+
 btnAdd.addEventListener('click', function () {
 	let note = createNote();
 	noteContainer.appendChild(note);
@@ -58,11 +68,12 @@ btnAdd.addEventListener('click', function () {
 	saveData();
 })
 
+
 // остальные действия завязаны по клику на поле карточек
 noteContainer.addEventListener('click', function (e) {
+	/*
 	const allNotes = document.querySelectorAll('.note');
 	allNotes.forEach(function (note) {
-
 		const noteTitle = note.querySelector('.note__title');
 		const noteContent = note.querySelector('.note__content');
 
@@ -110,7 +121,7 @@ noteContainer.addEventListener('click', function (e) {
 
 		// changeColor
 		note.querySelector('.btn-color').addEventListener('click', function () {
-			this.classList.toggle('active');
+			note.classList.toggle('active');
 			const colorBox = this.nextElementSibling;
 			colorBox.classList.toggle('hide');
 
@@ -128,12 +139,110 @@ noteContainer.addEventListener('click', function (e) {
 					saveData();
 				})
 			})
-			
+
 		})
 	})
+	*/
+
+	if (e.target.className.includes('note__title')) {
+		if (!e.target.className.includes('active')) {
+			e.target.classList.add('active');
+
+			if (e.target.innerHTML.trim() === '<span class="placeholder">Note title</span>') {
+				e.target.innerHTML = '';
+			}
+
+			createOverlay();
+			if (document.querySelector('.overlay')) {
+				document?.querySelector('.overlay').addEventListener('click', function () {
+					e.target.classList.remove('active');
+					document?.querySelector('.overlay').remove();
+
+					if (e.target.innerHTML.trim() === '') {
+						e.target.innerHTML = '<span class="placeholder">Note title</span>';
+					}
+					saveData()
+				})
+			}
+		}
+
+	}
+
+	if (e.target.className.includes('note__content')) {
+		if (!e.target.className.includes('active')) {
+			e.target.classList.add('active');
+
+			if (e.target.innerHTML.trim() === '<span class="placeholder">Enter your text</span>') {
+				e.target.innerHTML = '';
+			}
+
+			createOverlay();
+			if (document.querySelector('.overlay')) {
+				document?.querySelector('.overlay').addEventListener('click', function () {
+					e.target.classList.remove('active');
+					document?.querySelector('.overlay').remove();
+
+					if (e.target.innerHTML.trim() === '') {
+						e.target.innerHTML = '<span class="placeholder">Enter your text</span>';
+					}
+
+					saveData();
+				})
+			}
+		}
+
+	}
+
+	if (e.target.className.includes('btn-color')) {
+		e.target.classList.toggle('active');
+		e.target.nextElementSibling.classList.toggle('hide');
+		e.target.parentElement.classList.toggle('active');
+
+		createOverlay();
+		if (document.querySelector('.overlay')) {
+			document.querySelector('.overlay').addEventListener('click', function () {
+				e.target.classList.remove('active');
+				e.target.nextElementSibling.classList.add('hide');
+				e.target.parentElement.classList.remove('active');
+
+				document.querySelector('.overlay').remove();
+			})
+		}
+
+	}
+
+	if (e.target.className.includes('btn-remove')) {
+		e.target.parentElement.parentElement.remove();
+		saveData();
+	}
+
+	
+	const allColorBtns = document.querySelectorAll('.btn-color-box > button');
+
+	allColorBtns.forEach(function (colorBtn) {
+		colorBtn.addEventListener('click', function () {
+			allColorBtns.forEach(function (colorBtn) {
+				colorBtn.classList.remove('active');
+			})
+			colorBtn.classList.add('active');
+			let thisNote = colorBtn.parentElement.parentElement.parentElement.parentElement;
+			let bgColor = colorBtn.getAttribute('style');
+			thisNote.style.backgroundColor = `${bgColor.slice(18, -1)}`;
+			saveData();
+		})
+	})
+
 })
 
 /*
 
 */
 updateData();
+
+// На всякий случай закрываем все настройки цвета
+if (document.querySelectorAll('.btn-color')) {
+	document.querySelectorAll('.btn-color').forEach((btn) => {
+		btn.classList.remove('active');
+		btn.nextElementSibling.classList.add('hide');
+	})
+}
