@@ -3,7 +3,7 @@ const noteContainer = document.querySelector('.main-container');
 
 function getCurrentDate() {
 	let date = new Date();
-	return `<span>${date.getDate()< 10 ? '0' + (date.getDate()) : date.getDate()}.${date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}.${date.getFullYear()}</span><span>${date.getHours() < 10 ? '0' + (date.getHours() + 1) : date.getHours() + 1}:${date.getMinutes() < 10 ? '0' + (date.getMinutes() + 1) : date.getMinutes() + 1}</span>`;
+	return `<span>${date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()}.${date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}.${date.getFullYear()}</span><span>${date.getHours() < 10 ? '0' + (date.getHours() + 1) : date.getHours() + 1}:${date.getMinutes() < 10 ? '0' + (date.getMinutes() + 1) : date.getMinutes() + 1}</span>`;
 }
 
 function createNote() {
@@ -60,11 +60,36 @@ function createOverlay() {
 	}
 }
 
+function noteContentHandler(element) {
+	if (!element.className.includes('active')) {
+		element.classList.add('active');
+
+		if (element.innerHTML.trim() === '<span class="placeholder">Enter your text</span>') {
+			element.innerHTML = '';
+		}
+
+		createOverlay();
+		if (document.querySelector('.overlay')) {
+			document?.querySelector('.overlay').addEventListener('click', function () {
+				element.classList.remove('active');
+				document?.querySelector('.overlay').remove();
+
+				if (element.innerHTML.trim() === '') {
+					element.innerHTML = '<span class="placeholder">Enter your text</span>';
+				}
+
+				saveData();
+			})
+		}
+	}
+}
+
 btnAdd.addEventListener('click', function () {
 	let note = createNote();
 	noteContainer.appendChild(note);
 
 	note.querySelector('.note__content').focus();
+	noteContentHandler(note.querySelector('.note__content'));
 	saveData();
 })
 
@@ -72,6 +97,7 @@ btnAdd.addEventListener('click', function () {
 // остальные действия завязаны по клику на поле карточек
 noteContainer.addEventListener('click', function (e) {
 	/*
+	// OLD VERSION
 	const allNotes = document.querySelectorAll('.note');
 	allNotes.forEach(function (note) {
 		const noteTitle = note.querySelector('.note__title');
@@ -169,28 +195,7 @@ noteContainer.addEventListener('click', function (e) {
 	}
 
 	if (e.target.className.includes('note__content')) {
-		if (!e.target.className.includes('active')) {
-			e.target.classList.add('active');
-
-			if (e.target.innerHTML.trim() === '<span class="placeholder">Enter your text</span>') {
-				e.target.innerHTML = '';
-			}
-
-			createOverlay();
-			if (document.querySelector('.overlay')) {
-				document?.querySelector('.overlay').addEventListener('click', function () {
-					e.target.classList.remove('active');
-					document?.querySelector('.overlay').remove();
-
-					if (e.target.innerHTML.trim() === '') {
-						e.target.innerHTML = '<span class="placeholder">Enter your text</span>';
-					}
-
-					saveData();
-				})
-			}
-		}
-
+		noteContentHandler(e.target);
 	}
 
 	if (e.target.className.includes('btn-color')) {
@@ -216,7 +221,6 @@ noteContainer.addEventListener('click', function (e) {
 		saveData();
 	}
 
-	
 	const allColorBtns = document.querySelectorAll('.btn-color-box > button');
 
 	allColorBtns.forEach(function (colorBtn) {
