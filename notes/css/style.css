@@ -9,6 +9,7 @@
   --yellow: #ffe066;
   --dark-green: #2b8a3e;
   --dark-red: #f03e3e;
+  --dark-opacity: rgba(33, 37, 41, 0.7);
   --gradient: linear-gradient(135deg, #0b8793, #360033);
   --shadow: 0 0 5px 0 rgba(#212529, 25%);
 }
@@ -34,6 +35,10 @@ svg {
   max-width: 100%;
 }
 
+svg {
+  pointer-events: none;
+}
+
 input,
 a,
 button {
@@ -55,6 +60,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 }
 
 .container {
@@ -128,15 +134,49 @@ body {
   font-weight: 700;
   border-bottom: 3px solid var(--dark);
 }
+@media (max-width: 550px) {
+  .note__header {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+}
 .note__title {
   font-size: 3.2rem;
+  padding: 0.8rem 1.6rem;
+  margin-left: -1.6rem;
   flex: 1;
   width: 100%;
+  position: relative;
+}
+.note__title.active {
+  z-index: 4;
+  background-color: var(--light);
 }
 @media (max-width: 550px) {
   .note__title {
     font-size: 2.8rem;
   }
+}
+.note__date {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+@media (max-width: 550px) {
+  .note__date {
+    align-self: flex-end;
+  }
+}
+.note__content {
+  padding: 0.8rem 1.6rem;
+  margin-left: -1.6rem;
+  position: relative;
+}
+.note__content.active {
+  z-index: 4;
+  background-color: var(--light);
 }
 .note__content > *:not(:last-child) {
   margin-bottom: 1.6rem;
@@ -144,7 +184,7 @@ body {
 .note__btn-box {
   position: absolute;
   bottom: 1.6rem;
-  right: 6.4rem;
+  right: 3.2rem;
   display: flex;
   align-items: center;
   gap: 1.6rem;
@@ -162,9 +202,11 @@ body {
 .note__btn-color-wrapper {
   position: relative;
 }
+.note__btn-color-wrapper.active {
+  z-index: 55;
+}
 .btn-color {
   position: relative;
-  z-index: 2;
   border: none;
   width: 3rem;
   height: 3rem;
@@ -172,10 +214,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 .btn-color svg {
   fill: var(--dark);
   transition: all 0.3s;
+}
+.btn-color:hover, .btn-color.active {
+  z-index: 4;
 }
 .btn-color:hover svg, .btn-color.active svg {
   fill: var(--dark-green);
@@ -183,6 +229,7 @@ body {
 
 .btn-color-box {
   position: absolute;
+  z-index: 3;
   right: -1.2rem;
   display: flex;
   gap: 1.6rem;
@@ -245,7 +292,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 55;
+  z-index: 3;
 }
 
 .btn-add {
@@ -274,8 +321,20 @@ body {
 
 .placeholder {
   opacity: 0.5;
+  pointer-events: none;
 }
 
 .hide {
   display: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark-opacity);
+  z-index: 3;
+  cursor: pointer;
 }
